@@ -1,0 +1,42 @@
+2 player vs player(AI)
+
+
+W and W 
+booth players start on a fixed square
+the board is comprised of 21/8 space arroanged like a 5x5/3x3
+each space will be produally made to have strctures or seed based areas of intreast
+
+each player can make 2 moves per turn 
+
+the moves
+-can move foward/turn and move foward
+-can attack other player if on same square
+-can heal hp by 1(or whatever)
+-can take an item/buff on a space
+
+diffrent rules
+-difffrent squares cause diffrent effects
+-specific sqaures can be captured but take some time
+-the board will be expanded if nobody has won yet in every dirction to the 5/5 with the corners missing
+-the middle space will be on cooldown until 50% of the outer rim spaces are used or travered
+-if all outer rim spaces are travered the coner pieces will become avaible as super rare upgrades
+-cannot atck player on first space
+
+players effect on the board
+-players can lay traps on any space either a trun lose or dmg space
+-players can choose to take an item from a space or leave it
+	the space be will traversed but not deactive and will not go into cooldown
+-if the space is a range space the player can attack from 2 spaces away
+-players can also aquire temp buffs from spaces that can 
+	-apply hp bonus 
+	-apply def bonus
+	-apply atk bonus
+
+
+
+
+
+
+
+
+
