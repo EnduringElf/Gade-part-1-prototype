@@ -13,6 +13,5 @@ public class TileObject : MonoBehaviour
     {
         Xpos = xpos;
         Ypos = ypos;
-
     }
 }

@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectMaster : MonoBehaviour
+abstract public class ObjectMaster : MonoBehaviour
 {
     [SerializeField]
-    private string Name;
+    protected string Name;
     [SerializeField]
-    int Xpos;
+    protected int Xpos;
     [SerializeField]
-    int Ypos;
+    protected int Ypos;
     [SerializeField]
-    string Type; 
+    protected string Type; 
 
     
 }

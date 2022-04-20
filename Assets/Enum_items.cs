@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace Assets
 {
-    public enum Items
+    public enum ItemNames
     {
         Sword,
         Dagger,
-        Spear,
+        shield,
         HpPotion,
 
     }
 
-    public enum Buffs
+    public enum BuffNames
     {
-        ATK,
-        DEF,
-        HP,
+        ATKbuff,
+        DEFbuff,
+        HPbuff,
     }
        
 }
