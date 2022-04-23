@@ -28,7 +28,7 @@ public class AgentManager : MonoBehaviour
 
     private Agent currentAgent = null;
 
-    void Start()
+    void Awake()
     {
         // @TEMP:
         agent1 = new PlayerAgent();
