@@ -6,6 +6,12 @@ public class MapGenerator : MonoBehaviour
 {
     public GameObject BoardPlacementPrefab;
 
+    public GameObject ClientPrefab;
+
+    private Game_manager Manager;
+
+    private TileObject[,] BoardRep;
+
     [SerializeField]
     private int HorizontalCount = 3;
 
@@ -16,8 +22,11 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
+        Manager = GameObject.Find("Admin").GetComponent<Game_manager>();
+
         GameObject board = new GameObject();
-        board.transform.name = "Board";        
+        board.transform.name = "Board";
+        BoardRep = new TileObject[HorizontalCount,VerticalCount];
                 
         for (int i = 0; i < HorizontalCount; i++)
         { 
@@ -27,10 +36,25 @@ public class MapGenerator : MonoBehaviour
                 placement.transform.position = new Vector3(i, 0, j) * BoardPlacementSize - 
                     new Vector3(BoardPlacementSize * (HorizontalCount / 2), 0, BoardPlacementSize * (VerticalCount / 2));
 
+                BoardRep[i, j] = new TileObject(i, j, placement, $"{i}, {j}");
+
                 placement.name = "Board placement " + $"{i}, {j}";
                 placement.transform.SetParent(board.transform);
             }
         }
+
+        Manager.tiles = BoardRep;
+
+        for(int i = 0; i < 2; i++)
+        {
+            GameObject client = Instantiate(ClientPrefab);
+            client.transform.position = new Vector3(0, 1, 0);
+            client.GetComponent<CleintSub>().name = "client " + $"{i +1}";
+            
+            Manager.clients[i] = client;
+
+        }
+
     }
 
     

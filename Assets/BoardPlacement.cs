@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BoardPlacement : MonoBehaviour
 {
+    GameObject manager;
+
  
     void Start()
     {
-        
+        manager = GameObject.Find("Admin");
     }
 
     
@@ -17,7 +19,7 @@ public class BoardPlacement : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // @NOTE(ELF): Here is where you'd add all your game logic. Enjoy :) :) :) :) 
+        manager.GetComponent<Game_manager>().moveplayer(this.transform.position.x, this.transform.position.z);
         Debug.Log(name);
     }
 }

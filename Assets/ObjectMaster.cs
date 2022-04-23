@@ -7,9 +7,9 @@ abstract public class ObjectMaster : MonoBehaviour
     [SerializeField]
     protected string Name;
     [SerializeField]
-    protected int Xpos;
+    protected float Xpos;
     [SerializeField]
-    protected int Ypos;
+    protected float Ypos;
     [SerializeField]
     protected string Type; 
 

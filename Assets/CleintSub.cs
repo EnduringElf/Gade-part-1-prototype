@@ -18,6 +18,36 @@ public class CleintSub : ObjectMaster
     TempBuffSub Buff;
     [SerializeField]
     int Buff_Duration = 0;
+    [SerializeField]
+    int tileLength = 1;
+
+    [SerializeField]
+    int offset;
+    bool OffsetTrue = true;
+
+    
+
+
+    private void Update()
+    {
+        if(OffsetTrue == true)
+        {
+            switch (Name)
+            {
+                case "client 2":
+                    offset = -2;
+                    break;
+                case "client 1":
+                    offset = 2;
+                    break;
+            }
+
+        }
+       
+
+        Name = this.gameObject.name;
+        this.transform.position = new Vector3(((Xpos)) + offset, 0,((Ypos))+offset);
+    }
 
     //passing through weapons from board to charchters
     public void Addweapon(ItemSub item)
@@ -74,7 +104,15 @@ public class CleintSub : ObjectMaster
         enemny.HP -= ATK;
     }
 
+    public void Move(float x, float y)
+    {
+        Xpos = x;
+        Ypos = y;
+    }
 
-    
+
+
+
+
 
 }

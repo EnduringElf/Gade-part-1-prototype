@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class BoardRepresentation : MonoBehaviour
 {
+
+    TileObject[,] tiles;
+    int[,] cleintpos;
+    
+
+
+
     // Start is called before the first frame update
     void Start()
     {

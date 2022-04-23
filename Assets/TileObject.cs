@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileObject : MonoBehaviour
+public class TileObject : ObjectMaster
 {
+    
     [SerializeField]
-    private int Xpos;
+    public ItemSub Item;
     [SerializeField]
-    private int Ypos;
+    public TempBuffSub Buff;
 
-    public TileObject(int xpos, int ypos)
+
+    GameObject tile_object;
+
+
+
+    public TileObject(int xpos, int ypos, GameObject prefab_tile, string name)
     {
         Xpos = xpos;
         Ypos = ypos;
+        tile_object = prefab_tile;
+        Type = "tile";
+        Name = name;
     }
 }
