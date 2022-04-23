@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
+    [SerializeField]
     public BoardPlacement BoardPlacementPrefab;
-    public CleintSub UnitPrefab;
-        
+    [SerializeField]
+    public Unit Player1UnitPrefab;
+    [SerializeField]
+    public Unit Player2UnitPrefab;
+    [SerializeField]
+    public int MaxSwordSpawnCount = 2;
+    [SerializeField]
+    public Sword SwordPrefab;
+    [SerializeField]
+    public int MaxPotionSpawnCount = 4;
+    [SerializeField]
+    public Potion PotionPrefab;
+    [SerializeField]
+    public int MaxShieldSpawnCount = 2;
+    [SerializeField]
+    public Shield ShieldPrefab;
+
     [SerializeField]
     private int HorizontalCount = 3;
 
@@ -16,9 +32,7 @@ public class Map : MonoBehaviour
     private const int BoardPlacementSize = 10;
 
     private BoardPlacement[,] placements;
-
-    CleintSub unit;
-
+       
     void Start()
     {
         GameObject board = new GameObject();
@@ -37,15 +51,66 @@ public class Map : MonoBehaviour
                 placement.name = "Board placement " + $"{i}, {j}";
                 placement.transform.SetParent(board.transform);
 
-                if (i == 0 && j == 0)
+                // @NOTE: Spawn unit every even tile player 1.
+                if (i % 2 != 0 && j == 0)
                 {
-                    unit = Instantiate(UnitPrefab);
-                    unit.MovesRemaining = 2;
+                    Unit unit = Instantiate(Player1UnitPrefab);                    
                     placement.SetUnit(unit, true);
                     unit.OwningAgent = AgentManager.Get().GetFirstAgent();
                 }
 
+                // @NOTE: Spawn unit every even tile for player 2.
+                if (i % 2 != 0 && j == VerticalCount - 1)
+                {
+                    Unit unit = Instantiate(Player2UnitPrefab);
+                    placement.SetUnit(unit, true);
+                    unit.OwningAgent = AgentManager.Get().GetSecondAgent();
+                }
+
                 placements[i, j] = placement;
+            }
+        }
+
+        int spawnedSwords = 0;
+        int spawnedShields = 0;
+        int spawnedPotoins = 0;
+
+        for (int s = 0; s < 250; s++)
+        {
+            int i = Random.Range(0, HorizontalCount);
+            int j = Random.Range(0, VerticalCount);
+            int item = Random.Range(0, 3);
+            float prob = Random.Range(0.0f, 1.0f) * 100.0f;
+            if (placements[i, j].GetFirstUnit() == null && placements[i,j].item == null)
+            {
+                switch (item)
+                {
+                    case 0:
+                        if (prob < SwordPrefab.SpawnProbablity && spawnedSwords < MaxSwordSpawnCount)
+                        {
+                            placements[i, j].item = Instantiate(SwordPrefab, placements[i, j].transform);
+                            placements[i, j].item.transform.localPosition = new Vector3(0, 3, 0);
+                            spawnedSwords++;
+                        }
+                        break;
+                    case 1:
+                        if (prob < ShieldPrefab.SpawnProbablity && spawnedShields < MaxShieldSpawnCount)
+                        {
+                            placements[i, j].item = Instantiate(ShieldPrefab, placements[i, j].transform);
+                            placements[i, j].item.transform.localPosition = new Vector3(0, 1, 0);
+                            spawnedShields++;
+                        }
+                        break;
+                    case 2:
+                        if (prob < PotionPrefab.SpawnProbablity && spawnedPotoins < MaxPotionSpawnCount)
+                        {
+                            placements[i, j].item = Instantiate(PotionPrefab, placements[i, j].transform);
+                            placements[i, j].item.transform.localPosition = new Vector3(0, 1, 0);
+                            spawnedPotoins++;
+                        }
+                        break;
+                    default: Debug.LogError("You did not add the new item to the spawning code"); break;
+                }
             }
         }
 
@@ -120,14 +185,9 @@ public class Map : MonoBehaviour
                 BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
                 if (placement)
                 {
-                    AgentManager.Get().GetCurrentAgent().Action(placement);                 
+                    AgentManager.Get().GetCurrentAgent().Action(placement);
                 }
-            }
-
-           
+            }          
         }
-     
-
-
     }
 }

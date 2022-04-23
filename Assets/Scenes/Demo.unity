@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &25770986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25770988}
+  - component: {fileID: 25770987}
+  m_Layer: 0
+  m_Name: Player2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &25770987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25770986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3860c8b0e1d71d43932ce5198c9bd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentMoves: 2
+  SelectionStuffiesPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
+--- !u!4 &25770988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25770986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39875716, y: 10.1685095, z: 7.691928}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &46992676
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +199,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoardPlacementPrefab: {fileID: 7261032568365537534, guid: 44ea1049b437a564ebcdc801eb4b5c26, type: 3}
-  UnitPrefab: {fileID: 4292324216180583910, guid: 5b74edf1c1d7e0d4f83c937601530593, type: 3}
+  Player1UnitPrefab: {fileID: 4292324216180583910, guid: c1afc7aee85118c45b5cf18220e2523e, type: 3}
+  Player2UnitPrefab: {fileID: 4292324216180583910, guid: 5b74edf1c1d7e0d4f83c937601530593, type: 3}
+  MaxSwordSpawnCount: 2
+  SwordPrefab: {fileID: -5664862033845443363, guid: 2b602f5fbacf66a4a86c7927503f1aa9, type: 3}
+  MaxPotionSpawnCount: 4
+  PotionPrefab: {fileID: -5891452395275745841, guid: cb8dcddf1152c5e42990ae3d9a748ad6, type: 3}
+  MaxShieldSpawnCount: 2
+  ShieldPrefab: {fileID: 6384212438341504464, guid: 879f6a86ebcfee84581e54f55d720d23, type: 3}
   HorizontalCount: 5
   VerticalCount: 5
 --- !u!4 &46992678
@@ -215,6 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5643584866531da4282659e60ec1a0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectionPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
+  Agent1: {fileID: 933255528}
+  Agent2: {fileID: 25770987}
 --- !u!1 &577570865
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,3 +580,49 @@ Transform:
   m_Father: {fileID: 577570866}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &933255527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933255529}
+  - component: {fileID: 933255528}
+  m_Layer: 0
+  m_Name: Player1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &933255528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933255527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3860c8b0e1d71d43932ce5198c9bd46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentMoves: 2
+  SelectionStuffiesPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
+--- !u!4 &933255529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933255527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39875716, y: 10.1685095, z: 7.691928}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AgentManager : MonoBehaviour
 {
+    [SerializeField]
+    public SelectionStuffies SelectionPrefab;
+    [SerializeField]
+    private Agent Agent1;
+    [SerializeField]
+    private Agent Agent2;
+
     public static AgentManager Get() { return instance; }    
     private static AgentManager instance = null;
 
@@ -14,26 +21,32 @@ public class AgentManager : MonoBehaviour
 
     public Agent GetFirstAgent()
     { 
-        return agent1;
+        return Agent1;
     }    
     public Agent GetSecondAgent()
     {
-        return agent2;
+        return Agent2;
     }
 
-    [SerializeField]
-    private Agent agent1;
-    [SerializeField]
-    private Agent agent2;
+    public void SwapTurns()
+    {
+        if (currentAgent == Agent1)
+        {
+            currentAgent = Agent2;
+        }
+        else if (currentAgent == Agent2)
+        {
+            currentAgent = Agent1;
+        }
+
+        //Debug.Log(currentAgent);
+        currentAgent.CurrentMoves = 2;
+    }
 
     private Agent currentAgent = null;
 
     void Awake()
     {
-        // @TEMP:
-        agent1 = new PlayerAgent();
-        agent2 = new PlayerAgent();
-
         if (instance)
         {
             Debug.LogError("Should only be one AgentManager");
@@ -41,7 +54,7 @@ public class AgentManager : MonoBehaviour
         }
         else
         {
-            currentAgent = agent1;
+            currentAgent = Agent1;
             instance = this;
         }        
     }

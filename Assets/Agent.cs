@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Agent 
+public abstract class Agent : MonoBehaviour
 {
-    void Action(BoardPlacement placement);
+    protected List<Unit> units = new List<Unit>();
+    public int CurrentMoves = 2;
+
+    public abstract void Action(BoardPlacement placement);
+    public void RegisterUnit(Unit unit)
+    {
+        units.Add(unit);
+    }
 }
