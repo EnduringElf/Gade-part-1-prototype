@@ -50,7 +50,7 @@ public class MapGenerator : MonoBehaviour
             GameObject client = Instantiate(ClientPrefab);
             client.transform.position = new Vector3(0, 1, 0);
             client.GetComponent<CleintSub>().name = "client " + $"{i +1}";
-            
+            Manager.newarrarray();
             Manager.clients[i] = client;
 
         }

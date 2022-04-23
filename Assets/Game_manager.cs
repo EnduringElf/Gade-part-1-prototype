@@ -13,9 +13,12 @@ public class Game_manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+    public void newarrarray()
+    {
         clients = new GameObject[2];
     }
-
     
 
     // Update is called once per frame
