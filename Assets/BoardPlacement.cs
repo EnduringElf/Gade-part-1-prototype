@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class BoardPlacement : MonoBehaviour
 {
- 
-    void Start()
+    private CleintSub unit;
+    public List<BoardPlacement> neighbours;
+
+    public CleintSub GetCurrentUnit()
     {
-        
+        return unit;
     }
 
+    public void SetUnit(CleintSub unit, bool snap = false)
+    {
+        this.unit = unit;
+        if (snap)
+        {
+            unit.transform.position = transform.position;
+            unit.CurrentPlacement = this;
+        }
+    }
+
+    void Start()
+    {
+    }
     
     void Update()
     {
     }
 
-    private void OnMouseDown()
-    {
-        // @NOTE(ELF): Here is where you'd add all your game logic. Enjoy :) :) :) :) 
-        Debug.Log(name);
-    }
 }
