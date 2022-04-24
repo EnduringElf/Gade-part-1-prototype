@@ -13,6 +13,8 @@ public class Unit : MonoBehaviour
     public int ATK = 2;
     [SerializeField]
     public int DEF = 1;
+
+    //item pos in hieracrhy
     [SerializeField]
     public Transform WeaponVisualSpot = null;
 
@@ -33,7 +35,9 @@ public class Unit : MonoBehaviour
         public PathFindingNode(BoardPlacement p, PathFindingNode back) { this.p = p; this.back = back; }
     }
     public List<BoardPlacement> FindPath(BoardPlacement src, BoardPlacement dst)
-    {       
+    {      
+        //using queues and hashsets to find niegbors to move to
+
         HashSet<BoardPlacement> explored = new HashSet<BoardPlacement>();
 
         Queue<PathFindingNode> q = new Queue<PathFindingNode>();
@@ -74,7 +78,8 @@ public class Unit : MonoBehaviour
         return path;
     }
 
-    // @NOTE: 
+    // @NOTE: calculation works but if a player moves diagonally it cost both action points 
+    // @NOTE: players can jump a tile so moveing works like a pawn in chess so pretty cool
     public bool MoveTo(BoardPlacement dest, ref int movesRemaining)
     {
         List<BoardPlacement> path = FindPath(CurrentPlacement, dest);

@@ -11,6 +11,8 @@ public class BoardPlacement : MonoBehaviour
 
     public List<BoardPlacement> neighbours;
 
+    
+
     public Unit GetFirstUnit()
     {
         return unit1;
@@ -34,7 +36,7 @@ public class BoardPlacement : MonoBehaviour
 
         return count;
     }
-
+    //set the unit to the board for placement with snapping
     public void SetUnit(Unit unit, bool snap = false)
     {
         if (unit == null)
@@ -78,5 +80,7 @@ public class BoardPlacement : MonoBehaviour
     void Update()
     {
     }
+
+    
 
 }

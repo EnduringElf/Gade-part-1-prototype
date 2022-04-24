@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Potion : GameItem
+public class HPPotion : GameItem
 {
     [SerializeField]
     private int HP_Restored = 1;

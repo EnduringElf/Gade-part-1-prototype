@@ -7,7 +7,7 @@ public abstract class GameItem : MonoBehaviour
 {
     // @NOTE: Returns if the item is consumed on use
     [SerializeField]
-    public int RotationSpeed = 3;
+    public float RotationSpeed = 3;
 
     public abstract bool AddBuff(Unit unit);
 

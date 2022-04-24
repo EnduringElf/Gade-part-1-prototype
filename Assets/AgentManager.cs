@@ -19,15 +19,17 @@ public class AgentManager : MonoBehaviour
         return currentAgent;
     }
 
+
     public Agent GetFirstAgent()
     { 
         return Agent1;
     }    
+
     public Agent GetSecondAgent()
     {
         return Agent2;
     }
-
+    //swaps turns between agents
     public void SwapTurns()
     {
         if (currentAgent == Agent1)
@@ -45,6 +47,8 @@ public class AgentManager : MonoBehaviour
 
     private Agent currentAgent = null;
 
+
+    //singelton
     void Awake()
     {
         if (instance)

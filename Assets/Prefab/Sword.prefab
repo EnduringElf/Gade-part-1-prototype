@@ -306,6 +306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b60ff49e489b5d4899b6e0527376caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 3
+  RotationSpeed: 1
   ATK_Increase: 1
   SpawnProbablity: 15

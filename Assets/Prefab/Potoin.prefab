@@ -208,6 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 236ca7f94ea733d42900b0df4f5e873a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 3
+  RotationSpeed: 1
   HP_Restored: 1
   SpawnProbablity: 25
