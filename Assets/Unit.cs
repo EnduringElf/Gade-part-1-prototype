@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Unit : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class Unit : MonoBehaviour
     [SerializeField]
     public int DEF = 1;
 
+    public TMP_Text TMP_hp;
+    [SerializeField]
+    int playertextlabel;
+
     //item pos in hieracrhy
     [SerializeField]
     public Transform WeaponVisualSpot = null;
@@ -23,9 +28,15 @@ public class Unit : MonoBehaviour
     public BoardPlacement CurrentPlacement { get; set; }
 
 
-    private void Start()
+    private void Awake()
     {
-        
+        TMP_hp = GameObject.Find("Player " + $"{playertextlabel} HP").GetComponent<TMP_Text>();
+
+
+    }
+    private void Update()
+    {
+        TMP_hp.text = HP.ToString();
     }
 
     class PathFindingNode
@@ -94,7 +105,7 @@ public class Unit : MonoBehaviour
 
             CurrentPlacement.SetUnit(null);
             path[0].SetUnit(this, true);
-
+            //minuses moves remaining
             movesRemaining -= path.Count;
 
             return true;

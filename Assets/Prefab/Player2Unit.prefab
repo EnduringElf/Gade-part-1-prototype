@@ -245,4 +245,6 @@ MonoBehaviour:
   HP: 10
   ATK: 2
   DEF: 1
+  TMP_hp: {fileID: 0}
+  playertextlabel: 2
   WeaponVisualSpot: {fileID: 4243153950322096850}

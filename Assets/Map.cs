@@ -204,6 +204,7 @@ public class Map : MonoBehaviour
                 //sets the placement to boardplacement info from ray
                 
                 BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
+
                 //set the agent postion to a place on the board
                 if (placement)
                 {

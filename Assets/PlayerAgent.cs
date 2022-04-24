@@ -13,6 +13,8 @@ public class PlayerAgent : Agent
 
     public BoardPlacement Placement;
 
+    
+
     public override void Action(BoardPlacement placement)
     {
         Placement = placement;
@@ -39,8 +41,13 @@ public class PlayerAgent : Agent
                     }
                     else if (unit.OwningAgent != null)
                     {
+                        //check for other player on/going onto same square
                         if (currentUnit.MoveTo(placement, ref CurrentMoves))
                         {
+                            //logic for attacking on same square
+                            ButtonLogic.Get().AttackButton.interactable = true;
+
+
                             if (CurrentMoves <= 0)
                             {
                                 if (currentlySelected)
@@ -56,6 +63,8 @@ public class PlayerAgent : Agent
                             //Debug.Log("First " + unit1);
                             Unit unit2 = placement.GetSecondUnit();
                             //Debug.Log("Second" + unit2);
+
+                            
 
                             unit1.transform.position -= new Vector3(1f, 0.0f, 1f) * 2;
                             unit2.transform.position += new Vector3(1f, 0.0f, 1f) * 2;
@@ -74,9 +83,7 @@ public class PlayerAgent : Agent
                         {
                             ButtonLogic.Get().Pickupbutton.interactable = true;
                             ButtonLogic.Get().Set(this);
-                            
                             //Debug.Log("has item");
-
                             ////sets the unit item to board itme
                             //currentUnit.Item = placement.item;
                             ////will auto load item and set the unit to be unable to pick up items
@@ -120,7 +127,7 @@ public class PlayerAgent : Agent
     }
     public void pickup(BoardPlacement placement)
     {
-        Debug.Log("picked up " + $"{placement.item.name}");
+        //Debug.Log("picked up " + $"{placement.item.name}");
         //sets the unit item to board itme
         currentUnit.Item = placement.item;
         //will auto load item and set the unit to be unable to pick up items
@@ -128,6 +135,19 @@ public class PlayerAgent : Agent
         //sets the parent and local postion so player will drag that itme around
         placement.item.transform.SetParent(currentUnit.WeaponVisualSpot, true);
         placement.item.transform.localPosition = new Vector3(0, 0, 0);
+
+        //do adjustement to stats
+
+
+
+    }
+
+    public void Attack(Unit unit1, Unit unit2)
+    {
+
+
+
+
     }
 
 }

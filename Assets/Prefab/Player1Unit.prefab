@@ -141,7 +141,6 @@ GameObject:
   - component: {fileID: 4243153950322096852}
   - component: {fileID: 4243153950322096855}
   - component: {fileID: 4292324216180583910}
-  - component: {fileID: 5624230972977671360}
   m_Layer: 2
   m_Name: Player1Unit
   m_TagString: Untagged
@@ -246,20 +245,6 @@ MonoBehaviour:
   HP: 10
   ATK: 2
   DEF: 1
+  TMP_hp: {fileID: 0}
+  playertextlabel: 1
   WeaponVisualSpot: {fileID: 1694455470738506128}
---- !u!114 &5624230972977671360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4243153950322096854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f623b2251dc3e084eaba0fc8c47a66e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHP: 10
-  HP: 10
-  ATK: 2
-  DEF: 1

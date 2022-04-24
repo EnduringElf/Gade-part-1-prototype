@@ -56,7 +56,6 @@ public class ButtonLogic : MonoBehaviour
     public void Set(PlayerAgent playerAgent)
     {
         CPlayerAgent = playerAgent;
-        
     }
 
     
