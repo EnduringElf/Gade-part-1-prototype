@@ -32,9 +32,12 @@ public class AgentManager : MonoBehaviour
     //swaps turns between agents
     public void SwapTurns()
     {
+        Debug.Log("swapping turns");
         if (currentAgent == Agent1)
         {
+            
             currentAgent = Agent2;
+            
         }
         else if (currentAgent == Agent2)
         {
@@ -45,7 +48,7 @@ public class AgentManager : MonoBehaviour
         currentAgent.CurrentMoves = 2;
     }
 
-    private Agent currentAgent = null;
+    public Agent currentAgent = null;
 
 
     //singelton

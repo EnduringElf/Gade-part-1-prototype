@@ -67,6 +67,12 @@ public class ButtonLogic : MonoBehaviour
 
     }
 
+    public void attackButton()
+    {
+
+        CPlayerAgent.Attack(placement);
+        AttackButton.interactable = false;
+    }
 
 
 }

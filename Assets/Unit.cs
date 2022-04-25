@@ -19,6 +19,8 @@ public class Unit : MonoBehaviour
     [SerializeField]
     int playertextlabel;
 
+    
+
     //item pos in hieracrhy
     [SerializeField]
     public Transform WeaponVisualSpot = null;
@@ -117,5 +119,7 @@ public class Unit : MonoBehaviour
 
         return false;
     }
+
+
 
 }

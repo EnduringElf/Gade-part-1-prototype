@@ -41,6 +41,8 @@ public class Map : MonoBehaviour
 
     private BoardPlacement[,] placements;
 
+    public Unit currentselecretedunit;
+    public Unit otherunit;
     
     
        
@@ -69,19 +71,29 @@ public class Map : MonoBehaviour
                     Unit unit = Instantiate(Player1UnitPrefab);
                     placement.SetUnit(unit, true);
                     unit.OwningAgent = AgentManager.Get().GetFirstAgent();
+                    
                 }
 
-                //spawn player 1 at middle of the board
+                //spawn player 2 at middle of the board
                 if (i == Verticle - (Verticle / 2) - 1 && j == Horizontal - (Horizontal / 2)-1)
                 {
                     Unit unit = Instantiate(Player2UnitPrefab);
                     placement.SetUnit(unit, true);
                     unit.OwningAgent = AgentManager.Get().GetSecondAgent();
+                    
                 }
-
-                    placements[i, j] = placement;
+                
+                placements[i, j] = placement;
             }
+            
         }
+
+        GameObject.Find("Player1").GetComponent<PlayerAgent>().findplayercurrentpos();
+        GameObject.Find("Player2").GetComponent<PlayerAgent>().findplayercurrentpos();
+        
+        GameObject.Find("Player1").GetComponent<PlayerAgent>().transformoffset = true;
+        GameObject.Find("Player2").GetComponent<PlayerAgent>().transformoffset = true;
+
         //code for spawning items
 
         int spawnedSwords = 0;
@@ -198,22 +210,34 @@ public class Map : MonoBehaviour
            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit info;
-            //if ray hot the board 
+            //if ray hit the board 
             if (Physics.Raycast(ray, out info, LayerMask.GetMask("Board")))
             {
                 //sets the placement to boardplacement info from ray
                 
                 BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
-
-                //set the agent postion to a place on the board
+                //Debug.Log("placement units are unit:" + placement.unit1 + "unit2:" + placement.unit2);
+                
                 if (placement)
                 {
-                    
+                    Debug.Log("this a valid tile");
+                    Debug.Log("this tile has " + placement.unit1);
+                    Debug.Log("this tile has " + placement.unit2);
+                    currentselecretedunit = placement.GetFirstUnit();
+                    otherunit = placement.GetSecondUnit();
                     AgentManager.Get().GetCurrentAgent().Action(placement);
-                    //ButtonLogic.Get().Set(placement);
 
                 }
-            }          
+                
+                //set the agent postion to a place on the board
+                
+
+
+                //AgentManager.Get().GetCurrentAgent().Placement = placement;
+                //GameObject.Find("Player1").GetComponent<PlayerAgent>().Placement = placement;
+                //GameObject.Find("Player2").GetComponent<PlayerAgent>().Placement = placement;
+
+            }
         }
     }
 }

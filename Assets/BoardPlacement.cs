@@ -11,8 +11,6 @@ public class BoardPlacement : MonoBehaviour
 
     public List<BoardPlacement> neighbours;
 
-    
-
     public Unit GetFirstUnit()
     {
         return unit1;
