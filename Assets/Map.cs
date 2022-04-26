@@ -220,12 +220,13 @@ public class Map : MonoBehaviour
                 
                 if (placement)
                 {
-                    Debug.Log("this a valid tile");
-                    Debug.Log("this tile has " + placement.unit1);
-                    Debug.Log("this tile has " + placement.unit2);
+                    //Debug.Log("this a valid tile");
+                    //Debug.Log("this tile has " + placement.unit1);
+                    //Debug.Log("this tile has " + placement.unit2);
                     currentselecretedunit = placement.GetFirstUnit();
                     otherunit = placement.GetSecondUnit();
                     AgentManager.Get().GetCurrentAgent().Action(placement);
+                    AgentManager.Get().GetCurrentAgent().Placement = placement;
 
                 }
                 

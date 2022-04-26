@@ -8,7 +8,7 @@ public class PlayerAgent : Agent
     [SerializeField]
     public SelectionStuffies SelectionStuffiesPrefab = null;
 
-    private Unit currentUnit = null;
+    public Unit currentUnit = null;
 
     public Unit unit1;
     public Unit unit2;
@@ -19,7 +19,7 @@ public class PlayerAgent : Agent
 
     public bool transformoffset = false;
 
-    bool swap = true;
+    bool swap = false;
 
     private void Start()
     {
@@ -39,37 +39,27 @@ public class PlayerAgent : Agent
 
     private void Update()
     {
-        if(swap == true)
+        if (CurrentMoves <= 0)
         {
-            if (CurrentMoves <= 0)
+            ButtonLogic.Get().AttackButton.interactable = false;
+            if (currentlySelected)
             {
-                ButtonLogic.Get().AttackButton.interactable = false;
-                if (currentlySelected)
-                {
-                    Destroy(currentlySelected.gameObject);
-                }
-                //swaps turn here
-                currentUnit = null;
-
-                Debug.Log("this name is " + this.name);
-                AgentManager.Get().SwapTurns();
-                swap = false;
+                Destroy(currentlySelected.gameObject);
             }
-            else
-            {
-                if (GameObject.Find("Map Spawner").GetComponent<Map>().otherunit && GameObject.Find("Map Spawner").GetComponent<Map>().currentselecretedunit)
-                {
-                    ButtonLogic.Get().AttackButton.interactable = true;
-                    ButtonLogic.Get().Set(this);
-                }
-                else
-                {
-                    ButtonLogic.Get().AttackButton.interactable = false;
-                }
-            }
+            //swaps turn here
+            currentUnit = null;
+            AgentManager.Get().SwapTurns();
         }
-        
-        
+        if (GameObject.Find("Map Spawner").GetComponent<Map>().otherunit && GameObject.Find("Map Spawner").GetComponent<Map>().currentselecretedunit)
+        {
+            ButtonLogic.Get().AttackButton.interactable = true;
+            ButtonLogic.Get().Set(this);
+        }
+        else
+        {
+            ButtonLogic.Get().AttackButton.interactable = false;
+            ButtonLogic.Get().Set(this);
+        }
 
         //if(unit1.CurrentPlacement == unit2.CurrentPlacement)
         //{
@@ -89,9 +79,9 @@ public class PlayerAgent : Agent
         //    {
         //        transformplayeroffet(unit2);
         //    }
-            
+
         //}
-               
+
 
     }
 
@@ -170,6 +160,9 @@ public class PlayerAgent : Agent
                             findplayercurrentpos();
                             transformoffset = true;
 
+                            
+
+
                             Unit unit1 = placement.GetFirstUnit();
                             //Debug.Log("First " + unit1);
                             Unit unit2 = placement.GetSecondUnit();
@@ -246,54 +239,43 @@ public class PlayerAgent : Agent
 
     public void Attack(BoardPlacement placement)
     {
-        if (CurrentMoves <= 0)
+        Unit unit = Placement.GetFirstUnit();
+        if (currentUnit != null)
         {
-            ButtonLogic.Get().AttackButton.interactable = false;
-            if (currentlySelected)
-            {
-                Destroy(currentlySelected.gameObject);
-            }
-            //swaps turn here
-            currentUnit = null;
-            AgentManager.Get().SwapTurns();
+            //if (currentUnit == unit)
+            //{
+            //    //Destroy(currentlySelected.gameObject);
+            //   // currentUnit = null;
+            //}
+            //else
+            //{
+                //if (CurrentMoves <= 0)
+                //{
+                //    ButtonLogic.Get().AttackButton.interactable = false;
+                //    if (currentlySelected)
+                //    {
+                //        Destroy(currentlySelected.gameObject);
+                //    }
+                //    //swaps turn here
+                //    currentUnit = null;
+                //    AgentManager.Get().SwapTurns();
+                //}
+
+                GameObject.Find("Map Spawner").GetComponent<Map>().otherunit.HP -= GameObject.Find("Map Spawner").GetComponent<Map>().currentselecretedunit.ATK;
+
+                CurrentMoves--;
+                Debug.Log("current moves remaing" + CurrentMoves);
+           // }
         }
+            
 
         //Debug.Log("this was from" + this.name);
         //Debug.Log("this was from placement" + Placement);
 
-        GameObject.Find("Map Spawner").GetComponent<Map>().otherunit.HP -= GameObject.Find("Map Spawner").GetComponent<Map>().currentselecretedunit.ATK;
+       
         
-        CurrentMoves--;
-        Debug.Log("current moves remaing" + CurrentMoves);
-
-        //Debug.Log("the player" + GameObject.Find("Map Spawner").GetComponent<Map>().currentselecretedunit.name + "attacked" + GameObject.Find("Map Spawner").GetComponent<Map>().otherunit.name);
-
-        //if(Placement.GetFirstUnit() == this)
-        //{
-        //    GameObject.Find("Player2Unit(Clone)").GetComponent<Unit>().HP -= GameObject.Find("Player1Unit(Clone)").GetComponent<Unit>().ATK;
-
-        //}
-        //else
-        //{
-        //    GameObject.Find("Player1Unit(Clone)").GetComponent<Unit>().HP -= GameObject.Find("Player2Unit(Clone)").GetComponent<Unit>().ATK;
-        //}
-
-
-
-        //if()
-        //{
-        //    Debug.Log("unit 1 name: " + currentUnit);
-        //}
-        //else
-        //{
-        //    Debug.Log("unit 2 name: " + currentUnit);
-        //}
-
-
-        //Debug.Log("unit 1 name: " + unit1.name);
-        //Debug.Log("unit 2 name: " + unit2.name);
-
-
+        
+        
 
     }
 
