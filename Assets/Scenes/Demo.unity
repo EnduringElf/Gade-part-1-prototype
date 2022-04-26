@@ -153,8 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentMoves: 2
-  SelectionStuffiesPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
   Placement: {fileID: 0}
+  SelectionStuffiesPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
+  currentUnit: {fileID: 0}
+  unit1: {fileID: 0}
+  unit2: {fileID: 0}
+  origin: {fileID: 0}
+  transformoffset: 0
 --- !u!4 &25770988
 Transform:
   m_ObjectHideFlags: 0
@@ -210,6 +215,8 @@ MonoBehaviour:
   ShieldPrefab: {fileID: 6384212438341504464, guid: 879f6a86ebcfee84581e54f55d720d23, type: 3}
   Verticle: 5
   Horizontal: 5
+  currentselecretedunit: {fileID: 0}
+  otherunit: {fileID: 0}
 --- !u!4 &46992678
 Transform:
   m_ObjectHideFlags: 0
@@ -456,6 +463,7 @@ MonoBehaviour:
   SelectionPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
   Agent1: {fileID: 933255528}
   Agent2: {fileID: 25770987}
+  currentAgent: {fileID: 0}
 --- !u!1 &577570865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,8 +1111,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentMoves: 2
-  SelectionStuffiesPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
   Placement: {fileID: 0}
+  SelectionStuffiesPrefab: {fileID: 1552851767537716699, guid: 4430d7e25d276144b802ebb8256b1b49, type: 3}
+  currentUnit: {fileID: 0}
+  unit1: {fileID: 0}
+  unit2: {fileID: 0}
+  origin: {fileID: 0}
+  transformoffset: 0
 --- !u!4 &933255529
 Transform:
   m_ObjectHideFlags: 0
@@ -2121,7 +2134,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2113617245}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 215675804}
+        m_TargetAssemblyTypeName: ButtonLogic, Assembly-CSharp
+        m_MethodName: attackButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2113617245
 MonoBehaviour:
   m_ObjectHideFlags: 0
