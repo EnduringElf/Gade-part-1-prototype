@@ -8,13 +8,31 @@ public abstract class Agent : MonoBehaviour
 
     public int CurrentMoves = 2;
 
-    public BoardPlacement Placement;
-
-    
-
+    public BoardPlacement Placement;        
     public abstract void Action(BoardPlacement placement);
-    public void RegisterUnit(Unit unit)
+
+    // @NOTE: Look at this fancy affff syntax sugar.
+    public void RegisterUnit(Unit unit) => units.Add(unit);
+    public void RemoveUnit(Unit unit) => units.Remove(unit);
+
+    public List<Unit> GetUnits() => units;
+
+    public Unit selectedUnit = null;
+    protected SelectionStuffies currentlySelected = null;
+
+    // @NOTE: Swap turns if need be, else do nothing
+    public void TurnLogic()
     {
-        units.Add(unit);
+        if (CurrentMoves <= 0)
+        {
+            if (currentlySelected)
+            {
+                Destroy(currentlySelected.gameObject);
+            }
+
+            selectedUnit = null;
+            AgentManager.Get().SwapTurns();
+        }
     }
+
 }

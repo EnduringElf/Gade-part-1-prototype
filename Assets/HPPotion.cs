@@ -15,4 +15,9 @@ public class HPPotion : GameItem
         unit.HP += HP_Restored;
         return true;
     }
+
+    public override bool RemoveBuff(Unit unit)
+    {
+        return false;
+    }
 }

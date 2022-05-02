@@ -14,30 +14,17 @@ public class AgentManager : MonoBehaviour
     public static AgentManager Get() { return instance; }    
     private static AgentManager instance = null;
 
-    public Agent GetCurrentAgent()
-    {
-        return currentAgent;
-    }
+    public Agent GetCurrentAgent() => currentAgent;
+    public Agent GetFirstAgent() => Agent1;
+    public Agent GetSecondAgent() => Agent2;
 
-
-    public Agent GetFirstAgent()
-    { 
-        return Agent1;
-    }    
-
-    public Agent GetSecondAgent()
-    {
-        return Agent2;
-    }
     //swaps turns between agents
     public void SwapTurns()
     {
         Debug.Log("swapping turns");
         if (currentAgent == Agent1)
-        {
-            
-            currentAgent = Agent2;
-            
+        {            
+            currentAgent = Agent2;            
         }
         else if (currentAgent == Agent2)
         {
@@ -48,8 +35,23 @@ public class AgentManager : MonoBehaviour
         currentAgent.CurrentMoves = 2;
     }
 
-    public Agent currentAgent = null;
+    public bool IsGameOver()
+    {
+        if (Agent1.GetUnits().Count == 0 || Agent2.GetUnits().Count == 0)
+            return true;
+        return false;
+    }
 
+    public Agent GetWinner()
+    {
+        if (Agent1.GetUnits().Count > 0)
+            return Agent1;
+        if (Agent2.GetUnits().Count > 0)
+            return Agent2;
+        return null;
+    }
+
+    public Agent currentAgent = null;
 
     //singelton
     void Awake()
@@ -65,9 +67,5 @@ public class AgentManager : MonoBehaviour
             instance = this;
         }        
     }
-        
-    void Update()
-    {
-        
-    }
+
 }

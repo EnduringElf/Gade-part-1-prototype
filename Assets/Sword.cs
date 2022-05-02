@@ -14,4 +14,10 @@ public class Sword : GameItem
         unit.ATK += ATK_Increase;
         return true;
     }
+
+    public override bool RemoveBuff(Unit unit)
+    {
+        unit.ATK -= ATK_Increase;
+        return true;
+    }
 }

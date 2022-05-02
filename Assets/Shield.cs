@@ -14,4 +14,10 @@ public class Shield : GameItem
         unit.DEF += DEF_Increase;
         return true;
     }
+
+    public override bool RemoveBuff(Unit unit)
+    {
+        unit.DEF -= DEF_Increase;
+        return true;
+    }
 }

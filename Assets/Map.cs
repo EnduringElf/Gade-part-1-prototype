@@ -41,14 +41,9 @@ public class Map : MonoBehaviour
 
     private BoardPlacement[,] placements;
 
-    public Unit currentselecretedunit;
-    public Unit otherunit;
-    
-    
        
     void Start()
     {
-
         GameObject board = new GameObject();
         placements = new BoardPlacement[Verticle, Horizontal];
 
@@ -65,41 +60,31 @@ public class Map : MonoBehaviour
                 placement.name = "Board placement " + $"{i}, {j}";
                 placement.transform.SetParent(board.transform);
 
-                //spawn player 1 at middle of the board
-                if (i == Verticle-(Verticle/2) -1 && j == Horizontal-(Horizontal/2)-1)
+                //spawn player 1/2 at middle of the board
+                if (i == Verticle - (Verticle / 2) - 1 && j == Horizontal - (Horizontal / 2) - 1)
                 {
-                    Unit unit = Instantiate(Player1UnitPrefab);
-                    placement.SetUnit(unit, true);
-                    unit.OwningAgent = AgentManager.Get().GetFirstAgent();
-                    
-                }
+                    Unit unit1 = Instantiate(Player1UnitPrefab);
+                    placement.SetUnit(unit1, true);
+                    unit1.OwningAgent = AgentManager.Get().GetFirstAgent();
+                    unit1.OwningAgent.RegisterUnit(unit1);
 
-                //spawn player 2 at middle of the board
-                if (i == Verticle - (Verticle / 2) - 1 && j == Horizontal - (Horizontal / 2)-1)
-                {
-                    Unit unit = Instantiate(Player2UnitPrefab);
-                    placement.SetUnit(unit, true);
-                    unit.OwningAgent = AgentManager.Get().GetSecondAgent();
-                    
+                    Unit unit2 = Instantiate(Player2UnitPrefab);
+                    placement.SetUnit(unit2, true);
+                    unit2.OwningAgent = AgentManager.Get().GetSecondAgent();
+                    unit2.OwningAgent.RegisterUnit(unit2);
+
+                    PlayerAgent.OffsetUnits(unit1, unit2);
                 }
-                
+                                
                 placements[i, j] = placement;
-            }
-            
+            }            
         }
-
-        GameObject.Find("Player1").GetComponent<PlayerAgent>().findplayercurrentpos();
-        GameObject.Find("Player2").GetComponent<PlayerAgent>().findplayercurrentpos();
-        
-        GameObject.Find("Player1").GetComponent<PlayerAgent>().transformoffset = true;
-        GameObject.Find("Player2").GetComponent<PlayerAgent>().transformoffset = true;
+             
 
         //code for spawning items
-
         int spawnedSwords = 0;
         int spawnedShields = 0;
         int spawnedPotoins = 0;
-
         for (int s = 0; s < 250; s++)
         {
             int i = Random.Range(0, Verticle);
@@ -204,41 +189,28 @@ public class Map : MonoBehaviour
                 
     void Update()
     {
-        //recayst to hot on mouse down
-       if (Input.GetMouseButtonDown(0))
-       {
-           Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            RaycastHit info;
-            //if ray hit the board 
-            if (Physics.Raycast(ray, out info, LayerMask.GetMask("Board")))
+        AgentManager agentManager = AgentManager.Get();
+        if (!agentManager.IsGameOver())
+        {
+            //recayst to hot on mouse down
+            if (Input.GetMouseButtonDown(0))
             {
-                //sets the placement to boardplacement info from ray
-                
-                BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
-                //Debug.Log("placement units are unit:" + placement.unit1 + "unit2:" + placement.unit2);
-                
-                if (placement)
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                RaycastHit info;
+                //if ray hit the board 
+                if (Physics.Raycast(ray, out info, LayerMask.GetMask("Board")))
                 {
-                    //Debug.Log("this a valid tile");
-                    //Debug.Log("this tile has " + placement.unit1);
-                    //Debug.Log("this tile has " + placement.unit2);
-                    currentselecretedunit = placement.GetFirstUnit();
-                    otherunit = placement.GetSecondUnit();
-                    AgentManager.Get().GetCurrentAgent().Action(placement);
-                    AgentManager.Get().GetCurrentAgent().Placement = placement;
+                    //sets the placement to boardplacement info from ray                
+                    BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
 
+                    if (placement)
+                    {
+                        agentManager.GetCurrentAgent().Action(placement);
+                    }
                 }
-                
-                //set the agent postion to a place on the board
-                
-
-
-                //AgentManager.Get().GetCurrentAgent().Placement = placement;
-                //GameObject.Find("Player1").GetComponent<PlayerAgent>().Placement = placement;
-                //GameObject.Find("Player2").GetComponent<PlayerAgent>().Placement = placement;
-
             }
         }
+
     }
 }
