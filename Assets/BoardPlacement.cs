@@ -17,6 +17,17 @@ public class BoardPlacement : MonoBehaviour
     public bool HasItem() => item != null;
     public GameItem GetItem() => item;
 
+    public int Wieght;
+
+    public BoardPlacement(BoardPlacement boardPlacement)
+    {
+        unit1 = boardPlacement.unit1;
+        unit2 = boardPlacement.unit2;
+        item = boardPlacement.item;
+        neighbours = boardPlacement.neighbours;
+        Wieght = boardPlacement.Wieght;
+    }
+
     public int GetUnitCount()
     {
         int count = 0;

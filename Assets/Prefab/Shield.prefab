@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d71fdfed72ac049a169145b2482b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Shield
   RotationSpeed: 1
   DEF_Increase: 1
   SpawnProbablity: 25

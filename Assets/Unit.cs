@@ -14,20 +14,21 @@ public class Unit : MonoBehaviour
     public int ATK = 2;
     [SerializeField]
     public int DEF = 1;
-
     public TMP_Text TMP_hp;
     [SerializeField]
     int playertextlabel;
-
     //item pos in hieracrhy
     [SerializeField]
     public Transform WeaponVisualSpot = null;
-
     public GameItem Item { get; set; }
     public bool HasItem() => Item != null;
-
     public Agent OwningAgent { get; set; }
     public BoardPlacement CurrentPlacement { get; set; }
+
+    public Unit(GameItem gameItem, BoardPlacement boardPlacement)
+    {
+        this.Item = gameItem;
+    }
 
     private void Awake()
     {

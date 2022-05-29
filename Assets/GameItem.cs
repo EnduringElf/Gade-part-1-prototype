@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class GameItem : MonoBehaviour
 {
+    [SerializeField]
+    public string Name;
     // @NOTE: Returns if the item is consumed on use
     [SerializeField]
     public float RotationSpeed = 3;
