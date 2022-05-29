@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinMaxAgent : MonoBehaviour
 {
 
-    public List<BoardPlacement> VBoard = new List<BoardPlacement>();
+    public List<BoardPlacement> VBoard;
 
     public List<BoardPlacement> PossibleMoves;
     //Player 
@@ -20,9 +20,12 @@ public class MinMaxAgent : MonoBehaviour
         MiniMax(Player_2);
     }
 
-    public void CreateTree()
+    public void Prediction()
     {
+        foreach(BoardPlacement boardPlacement in PossibleMoves)
+        {
 
+        }
     }
 
     public int UtilityFinc()
@@ -58,12 +61,14 @@ public class MinMaxAgent : MonoBehaviour
                 if (!PossibleMoves.Contains(boardPlacement1))
                 {
                     boardPlacement1.Wieght = 1;
+                    //defualt wieght for far away spaces
                     PossibleMoves.Add(boardPlacement1);
                 }
             }
             if (!PossibleMoves.Contains(boardPlacement))
             {
                 boardPlacement.Wieght = 2;
+                //defualt wieght for close spaces
                 PossibleMoves.Add(boardPlacement);
             }
         }
@@ -103,6 +108,7 @@ public class MinMaxAgent : MonoBehaviour
                     else if(boardPlacement.GetItem().Name == "HP_pot" && Player_2.HP > Player_1.HP)
                     {
                         boardPlacement.Wieght += 5;
+                        //prioritise hp over fighting
                     }
                     else if (boardPlacement.GetItem().Name == "Shield")
                     {
@@ -114,10 +120,12 @@ public class MinMaxAgent : MonoBehaviour
                     if(Player_1.Item.Name == "Sword" && Player_1.HP > Player_2.HP)
                     {
                         boardPlacement.Wieght += 6;
+                        //leads to attacking
                     }
                     else
                     {
                         boardPlacement.Wieght -= 6;
+                        //leads to finding health or rather avoiding the players position
                     }
                     
                 }
@@ -164,6 +172,7 @@ public class MinMaxAgent : MonoBehaviour
     {
         int maxW = 0;
         int currentW;
+
         foreach(BoardPlacement bp in boardPlacements)
         {
             currentW = bp.Wieght;
