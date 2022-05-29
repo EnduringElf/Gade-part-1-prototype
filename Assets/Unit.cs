@@ -176,7 +176,7 @@ public class Unit : MonoBehaviour
 
     public void Kill()
     {
-        OwningAgent.RemoveUnit(this);
+        OwningAgent.RemoveUnit();
         CurrentPlacement.RemoveUnit(this);
         Destroy(this.gameObject);
     }

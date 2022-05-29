@@ -4,18 +4,18 @@ using UnityEngine;
 
 public abstract class Agent : MonoBehaviour
 {
-    protected List<Unit> units = new List<Unit>();
+    protected Unit unit;
 
     public int CurrentMoves = 2;
 
     public BoardPlacement Placement;        
-    public abstract void Action(BoardPlacement placement);
+    public abstract void Action(Map map);   
 
     // @NOTE: Look at this fancy affff syntax sugar.
-    public void RegisterUnit(Unit unit) => units.Add(unit);
-    public void RemoveUnit(Unit unit) => units.Remove(unit);
+    public void RegisterUnit(Unit unit) => this.unit = unit;
+    public void RemoveUnit() => unit = null;
 
-    public List<Unit> GetUnits() => units;
+    public Unit GetUnit() => unit;
 
     public Unit selectedUnit = null;
     protected SelectionStuffies currentlySelected = null;
@@ -35,4 +35,9 @@ public abstract class Agent : MonoBehaviour
         }
     }
 
+    public static void OffsetUnits(Unit unit1, Unit unit2)
+    {
+        unit1.transform.position -= new Vector3(1f, 0.0f, 1f) * 2;
+        unit2.transform.position += new Vector3(1f, 0.0f, 1f) * 2;
+    }
 }

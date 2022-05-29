@@ -21,7 +21,7 @@ public class AgentManager : MonoBehaviour
     //swaps turns between agents
     public void SwapTurns()
     {
-        Debug.Log("swapping turns");
+        //Debug.Log("swapping turns");
         if (currentAgent == Agent1)
         {            
             currentAgent = Agent2;            
@@ -37,16 +37,16 @@ public class AgentManager : MonoBehaviour
 
     public bool IsGameOver()
     {
-        if (Agent1.GetUnits().Count == 0 || Agent2.GetUnits().Count == 0)
+        if (Agent1.GetUnit() == null || Agent2.GetUnit() == null)
             return true;
         return false;
     }
 
     public Agent GetWinner()
     {
-        if (Agent1.GetUnits().Count > 0)
+        if (Agent1.GetUnit() != null)
             return Agent1;
-        if (Agent2.GetUnits().Count > 0)
+        if (Agent2.GetUnit() != null)
             return Agent2;
         return null;
     }

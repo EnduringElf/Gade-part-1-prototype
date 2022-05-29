@@ -170,8 +170,9 @@ public class NNAgent : Agent
 {
     public NN nn;
 
-    public override void Action(BoardPlacement placement)
+    public override void Action(Map map)
     {
+        
     }
 
     int GetMaxIndex(double[] arr)

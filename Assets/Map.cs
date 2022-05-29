@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Map : MonoBehaviour
 {
     [SerializeField]
@@ -32,23 +33,17 @@ public class Map : MonoBehaviour
     public Shield ShieldPrefab;
 
     [SerializeField]
-    private int Verticle = 3;
+    public int Verticle = 3;
 
     [SerializeField]
-    private int Horizontal = 3;
+    public int Horizontal = 3;
 
     private const int BoardPlacementSize = 10;
 
-    private BoardPlacement[,] placements;
+    public BoardPlacement[,] placements;
 
-    public MinMaxAgent boardState;
-
-    
-
-       
     void Start()
-    {
-        
+    {        
         GameObject board = new GameObject();
         placements = new BoardPlacement[Verticle, Horizontal];
 
@@ -58,13 +53,15 @@ public class Map : MonoBehaviour
         { 
             for (int j = 0; j < Horizontal; j++)
             {
-                BoardPlacement placement = Instantiate(BoardPlacementPrefab);
+                BoardPlacement placement = Instantiate(BoardPlacementPrefab, board.transform);
                 placement.transform.position = new Vector3(i, 0, j) * BoardPlacementSize - 
                     new Vector3(BoardPlacementSize * (Verticle / 2), 0, BoardPlacementSize * (Horizontal / 2));
 
                 placement.name = "Board placement " + $"{i}, {j}";
                 placement.transform.SetParent(board.transform);
-                boardState.VBoard.Add(placement);
+                
+                placement.i = i;
+                placement.j = j;
 
                 //spawn player 1/2 at middle of the board
                 if (i == Verticle - (Verticle / 2) - 1 && j == Horizontal - (Horizontal / 2) - 1)
@@ -73,14 +70,12 @@ public class Map : MonoBehaviour
                     placement.SetUnit(unit1, true);
                     unit1.OwningAgent = AgentManager.Get().GetFirstAgent();
                     unit1.OwningAgent.RegisterUnit(unit1);
-                    boardState.Player_1 = unit1;
 
 
                     Unit unit2 = Instantiate(Player2UnitPrefab);
                     placement.SetUnit(unit2, true);
                     unit2.OwningAgent = AgentManager.Get().GetSecondAgent();
                     unit2.OwningAgent.RegisterUnit(unit2);
-                    boardState.Player_2 = unit2;
 
                     PlayerAgent.OffsetUnits(unit1, unit2);
                 }
@@ -88,8 +83,6 @@ public class Map : MonoBehaviour
                 placements[i, j] = placement;
             }            
         }
-
-        
              
 
         //code for spawning items
@@ -134,7 +127,7 @@ public class Map : MonoBehaviour
                 }
             }
         }
-        boardState.GenerateTileWieghts();
+
         //code for nieghbor system
         for (int i = 0; i < Verticle; i++)
         {
@@ -198,31 +191,15 @@ public class Map : MonoBehaviour
             }
         }
     }
+
+    bool once = false;
                 
     void Update()
     {
         AgentManager agentManager = AgentManager.Get();
         if (!agentManager.IsGameOver())
-        {
-            //recayst to hot on mouse down
-            if (Input.GetMouseButtonDown(0))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                RaycastHit info;
-                //if ray hit the board 
-                if (Physics.Raycast(ray, out info, LayerMask.GetMask("Board")))
-                {
-                    //sets the placement to boardplacement info from ray                
-                    BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
-
-                    if (placement)
-                    {
-                        agentManager.GetCurrentAgent().Action(placement);
-                    }
-                }
-            }
+        {           
+            agentManager.GetCurrentAgent().Action(this);            
         }
-
     }
 }

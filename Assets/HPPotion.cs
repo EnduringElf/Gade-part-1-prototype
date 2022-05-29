@@ -6,7 +6,7 @@ using UnityEngine;
 public class HPPotion : GameItem
 {
     [SerializeField]
-    private int HP_Restored = 1;
+    public int HP_Restored = 1;
     [SerializeField]
     public float SpawnProbablity = 25;
 

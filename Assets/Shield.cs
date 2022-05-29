@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shield : GameItem
 {
     [SerializeField]
-    private int DEF_Increase = 1;
+    public int DEF_Increase = 1;
     [SerializeField]
     public float SpawnProbablity = 25;
     

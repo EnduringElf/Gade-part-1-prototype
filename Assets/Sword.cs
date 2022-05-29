@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sword : GameItem
 {
     [SerializeField]
-    private int ATK_Increase = 1;
+    public int ATK_Increase = 1;
     [SerializeField]
     public float SpawnProbablity = 15;
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BoardPlacement : MonoBehaviour
 {
     private Unit unit1;
@@ -11,13 +12,14 @@ public class BoardPlacement : MonoBehaviour
 
     public List<BoardPlacement> neighbours;
 
+    public int i;
+    public int j;
+
     public Unit GetFirstUnit() => unit1;
     public Unit GetSecondUnit() => unit2;
     public Unit[] GetUnits() => new Unit[] { unit1, unit2 };
     public bool HasItem() => item != null;
     public GameItem GetItem() => item;
-
-    public int Wieght;
 
     public BoardPlacement(BoardPlacement boardPlacement)
     {
@@ -25,7 +27,6 @@ public class BoardPlacement : MonoBehaviour
         unit2 = boardPlacement.unit2;
         item = boardPlacement.item;
         neighbours = boardPlacement.neighbours;
-        Wieght = boardPlacement.Wieght;
     }
 
     public int GetUnitCount()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerAgent : Agent
+public class PlayerAgent : Agent 
 {
     [SerializeField]
     public SelectionStuffies SelectionStuffiesPrefab = null;
@@ -16,14 +16,31 @@ public class PlayerAgent : Agent
 
     }
 
-    public static void OffsetUnits(Unit unit1, Unit unit2)
+
+
+    public override void Action(Map map)
     {
-        unit1.transform.position -= new Vector3(1f, 0.0f, 1f) * 2;
-        unit2.transform.position += new Vector3(1f, 0.0f, 1f) * 2;
+        //recayst to hot on mouse down
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit info;
+            //if ray hit the board 
+            if (Physics.Raycast(ray, out info, LayerMask.GetMask("Board")))
+            {
+                //sets the placement to boardplacement info from ray                
+                BoardPlacement placement = info.collider.gameObject.GetComponent<BoardPlacement>();
+
+                if (placement)
+                {
+                    DoAction(placement);
+                }
+            }
+        }
     }
 
-
-    public override void Action(BoardPlacement placement)
+    public void DoAction(BoardPlacement placement)
     {        
         Placement = placement;
         //works on more pieces on board if there are more peice to control like rpg chess
@@ -96,5 +113,5 @@ public class PlayerAgent : Agent
                 selectedUnit = unit;
             } 
         }
-    }
+    }  
 }
