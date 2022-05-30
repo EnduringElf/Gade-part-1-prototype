@@ -42,6 +42,8 @@ public class Map : MonoBehaviour
 
     public BoardPlacement[,] placements;
 
+    public SetDifficulity difficulity;
+
     void Start()
     {        
         GameObject board = new GameObject();
@@ -83,6 +85,8 @@ public class Map : MonoBehaviour
                 placements[i, j] = placement;
             }            
         }
+        difficulity.setDifficulity();
+
              
 
         //code for spawning items
