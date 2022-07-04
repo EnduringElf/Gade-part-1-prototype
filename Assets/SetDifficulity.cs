@@ -9,6 +9,8 @@ public class SetDifficulity : MonoBehaviour
 
     public MinMaxAgent MinMaxAgent;
 
+    public NNAgent NNAgent;
+
     public int HP;
 
     public int ATK;
@@ -23,7 +25,11 @@ public class SetDifficulity : MonoBehaviour
         Player1.HP = this.HP;
         Player1.MaxHP = this.HP;
         Player1.ATK = this.ATK;
-        MinMaxAgent.SearchDepth = this.depth;
+        if (MinMaxAgent)
+        {
+            MinMaxAgent.SearchDepth = this.depth;
+        }
+        
 
         
     }

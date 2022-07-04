@@ -50,8 +50,12 @@ public class Neuron
     public double Forward(double[] inputs) 
     {
         double ans = 0.0f;
-        for (int i = 0; i < inputs.Length; i++) {
-            ans += weights[i] * inputs[i];
+        for (int i = 0; i < inputs.Length - 1; i++) {
+            if(i < weights.Length && i < inputs.Length)
+            {
+                ans += weights[i] * inputs[i];
+            }
+            
         }
 
         forward = activationFunction.Activate(ans);
@@ -69,6 +73,7 @@ public class Layer
     {
         
     }
+
     public Layer(int neuronCount, int weightCount)
     {
         neurons = new Neuron[neuronCount];
@@ -140,39 +145,133 @@ pickup
 
 public class NN
 {
-    public const int neruonCount = 5 + 5 + 4 + 4 + 6;
-    public double[] inputLayer = new double[neruonCount];
-    public Layer layer1 = new Layer(neruonCount, neruonCount);
+    //public const int neruonCount = 5 + 5 + 4 + 4 + 6;
+    public InputData InputData = GameObject.Find("NNInputGetter").GetComponent<InputData>();
 
-    public const int outputCount = 4 + 2;
-    public Layer outputLayer = new Layer(outputCount, neruonCount);
+    public ActivationFunction sigmoid;
+
+
+    public List<double> inputLayer = new List<double>();
+    public Layer InputLayer;
+
+    public const int outputCount = 5;
+    public Layer outputLayer;
 
     public NN()
     {
-        for (int i = 0; i < inputLayer.Length; i++)
+        foreach(double t in InputData.GetInputData())
         {
-            inputLayer[i] = UnityEngine.Random.Range(-1.0f, 1.0f);
+            //Debug.Log(t);
+            inputLayer.Add(t);
         }
 
-        layer1.InitializeRandomWeights(-1.0, 1.0);
+        for (int i = 0; i < inputLayer.ToArray().Length; i++)
+        {
+            //inputLayer[i] = UnityEngine.Random.Range(-1.0f, 1.0f);
+            sigmoid = new SigmoidActivationFunction();
+            inputLayer[i] = sigmoid.Activate(inputLayer[i]);
+            
+        }
+        InputLayer = new Layer(inputLayer.ToArray().Length, inputLayer.ToArray().Length);
+        outputLayer = new Layer(outputCount, outputCount);
+        InputLayer.InitializeRandomWeights(-1.0, 1.0);
         outputLayer.InitializeRandomWeights(-1.0, 1.0);        
     }
 
     public void Forward()
     {
-        layer1.Forward(inputLayer);
-        outputLayer.Forward(layer1.answers);
+        InputLayer.Forward(inputLayer.ToArray());
+        outputLayer.Forward(InputLayer.answers);
     }
+
+    
 }
 
 
 public class NNAgent : Agent
 {
     public NN nn;
+    public int chioce;
+    public InputData InputData;
+    
 
     public override void Action(Map map)
     {
         
+        nn = new NN();
+        nn.Forward();
+        int t = GetMaxIndex(nn.outputLayer.answers);
+        chioce = t;
+        Debug.Log(chioce);
+        for (int i = 0; i < nn.InputLayer.neurons.Length; i++)
+        {
+            for (int j = 0; j < nn.InputLayer.neurons.Length; j++)
+            {
+                double d = nn.InputLayer.neurons[i].weights[j];
+                //Debug.Log($"Neuron: {i} weight: {d}");
+            }
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            switch (chioce)
+            {
+                case 0:
+                    {
+                        BoardPlacement placement = map.placements[unit.CurrentPlacement.i - 1, unit.CurrentPlacement.j];
+                        unit.MoveTo(placement, ref CurrentMoves);
+
+
+                        if (placement.GetFirstUnit() != null && placement.GetSecondUnit() != null)
+                            OffsetUnits(placement.GetFirstUnit(), placement.GetSecondUnit());
+                    }
+
+                    break;
+                case 1:
+                    {
+                        BoardPlacement placement = map.placements[unit.CurrentPlacement.i + 1, unit.CurrentPlacement.j];
+                        unit.MoveTo(placement, ref CurrentMoves);
+
+                        if (placement.GetFirstUnit() != null && placement.GetSecondUnit() != null)
+                            OffsetUnits(placement.GetFirstUnit(), placement.GetSecondUnit());
+                    }
+                    break;
+                case 2:
+                    {
+                        BoardPlacement placement = map.placements[unit.CurrentPlacement.i, unit.CurrentPlacement.j - 1];
+                        unit.MoveTo(placement, ref CurrentMoves);
+
+
+                        if (placement.GetFirstUnit() != null && placement.GetSecondUnit() != null)
+                            OffsetUnits(placement.GetFirstUnit(), placement.GetSecondUnit());
+                    }
+                    break;
+                case 3:
+                    {
+                        BoardPlacement placement = map.placements[unit.CurrentPlacement.i, unit.CurrentPlacement.j + 1];
+                        unit.MoveTo(placement, ref CurrentMoves);
+
+                        if (placement.GetFirstUnit() != null && placement.GetSecondUnit() != null)
+                            OffsetUnits(placement.GetFirstUnit(), placement.GetSecondUnit());
+                    }
+                    break;
+                case 4:
+                    unit.Attack();
+                    break;
+                case 5:
+                    if (unit.CurrentPlacement.item is HPPotion)
+                    {
+                        unit.Heal();
+                    }
+                    else
+                    {
+                        unit.EquipItem();
+                    }
+                    break;
+            }
+            InputData.SetGameObjectsInstance();
+        }
+        
+        AgentManager.Get().SwapTurns();
     }
 
     int GetMaxIndex(double[] arr)
@@ -193,24 +292,22 @@ public class NNAgent : Agent
 
     void Start()
     {
-        nn = new NN();        
-        nn.Forward();
+        InputData = GameObject.Find("NNInputGetter").GetComponent<InputData>();
+        //nn = new NN();        
+        //nn.Forward();
 
-        int index = GetMaxIndex(nn.outputLayer.answers);
-        Debug.Log($"Pick: idx = {index}  val={nn.outputLayer.answers[index]}");
+        //int index = GetMaxIndex(nn.outputLayer.answers);
+        //Debug.Log($"Pick: idx = {index}  val={nn.outputLayer.answers[index]}");
 
-        for (int i = 0; i < nn.layer1.neurons.Length; i++) {
-            for (int j = 0; j < nn.layer1.neurons.Length; j++) {
-                double d = nn.layer1.neurons[i].weights[j];
-                //Debug.Log($"Neuron: {i} weight: {d}");
-            }
-        }
+        
         
     }
 
     
     void Update()
     {
-        
+       //int i = GetMaxIndex(nn.outputLayer.answers);
+       //chioce = i;
     }
+
 }

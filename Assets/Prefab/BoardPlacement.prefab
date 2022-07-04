@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 7261032568365537534}
   m_Layer: 6
   m_Name: BoardPlacement
-  m_TagString: Untagged
+  m_TagString: BoardTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,6 +308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c31ad31208e4942917a25422be4277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  neighbours: []
+  i: 0
+  j: 0
 --- !u!1 &2267683063905935569
 GameObject:
   m_ObjectHideFlags: 0

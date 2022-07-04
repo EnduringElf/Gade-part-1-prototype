@@ -56,6 +56,7 @@ public class Map : MonoBehaviour
             for (int j = 0; j < Horizontal; j++)
             {
                 BoardPlacement placement = Instantiate(BoardPlacementPrefab, board.transform);
+                
                 placement.transform.position = new Vector3(i, 0, j) * BoardPlacementSize - 
                     new Vector3(BoardPlacementSize * (Verticle / 2), 0, BoardPlacementSize * (Horizontal / 2));
 
@@ -64,6 +65,7 @@ public class Map : MonoBehaviour
                 
                 placement.i = i;
                 placement.j = j;
+                
 
                 //spawn player 1/2 at middle of the board
                 if (i == Verticle - (Verticle / 2) - 1 && j == Horizontal - (Horizontal / 2) - 1)
@@ -72,12 +74,14 @@ public class Map : MonoBehaviour
                     placement.SetUnit(unit1, true);
                     unit1.OwningAgent = AgentManager.Get().GetFirstAgent();
                     unit1.OwningAgent.RegisterUnit(unit1);
+                    unit1.tag = "Player1";
 
 
                     Unit unit2 = Instantiate(Player2UnitPrefab);
                     placement.SetUnit(unit2, true);
                     unit2.OwningAgent = AgentManager.Get().GetSecondAgent();
                     unit2.OwningAgent.RegisterUnit(unit2);
+                    unit2.tag = "Player2";
 
                     PlayerAgent.OffsetUnits(unit1, unit2);
                 }
@@ -194,6 +198,9 @@ public class Map : MonoBehaviour
                 }
             }
         }
+
+        GameObject temp = GameObject.Find("NNInputGetter");
+        temp.GetComponent<InputData>().SetGameObjectsInstance();
     }
 
     bool once = false;
